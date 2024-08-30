@@ -8,6 +8,7 @@ GPIO.setmode(GPIO.BOARD)
 
 
 for i in Config.GPIO_LOOKUP:
+    print(f"Setting pin {Config.GPIO_LOOKUP[i]} (purpose: {i}) as OUT")
     GPIO.setup(Config.GPIO_LOOKUP[i], GPIO.OUT)
     print(i)
  
