@@ -1,10 +1,10 @@
 
 # GPIO pins for Pi3
 GPIO_LOOKUP = {
-    "preset1": 0,
-    "preset2": 5,
-    "preset3": 6,
-    "preset4": 13,
-    "up": 19,
-    "down": 26,
+    "preset1": 27,
+    "preset2": 22,
+    "preset3": 5,
+    "preset4": 6,
+    "up": 4,
+    "down": 17,
 }
