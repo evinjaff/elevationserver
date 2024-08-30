@@ -6,6 +6,7 @@ import Config
 
 GPIO.setmode(GPIO.BCM)
 
+TEST_INTERVAL_PAUSE = 10
 
 for i in Config.GPIO_LOOKUP:
     print(f"Setting pin {Config.GPIO_LOOKUP[i]} (purpose: {i}) as OUT")
@@ -20,8 +21,10 @@ for i in Config.GPIO_LOOKUP:
     GPIO.output( Config.GPIO_LOOKUP[i],False)
     time.sleep(3)
 
-    time.sleep(15)
-    print("wating...")
+    for i in range(1, TEST_INTERVAL_PAUSE):
+        print(f"{i}/{TEST_INTERVAL_PAUSE} seconds")
+
+    input(f"Did {i} work? (y/n): ")
 
 
 GPIO.cleanup()
