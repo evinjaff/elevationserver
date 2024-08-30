@@ -4,7 +4,7 @@ import time
 import Config
 
 
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 
 
 for i in Config.GPIO_LOOKUP:
