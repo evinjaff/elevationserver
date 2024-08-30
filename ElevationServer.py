@@ -1,4 +1,7 @@
 from flask import Flask
+from Config import GPIO_LOOKUP
+from GPIOTest import testPin
+import time
 
 app = Flask(__name__)
 
@@ -36,6 +39,12 @@ def elevationPreset(mode, previous_level=0):
     
     # Fire the optocoupler
 
+    modestring = "preset" + str(mode)
+
+    if modestring in GPIO_LOOKUP:
+        testPin(modestring, duration=0.25, interactive=False)
+
+
 
 TICKS_PER_SECOND_CONSTANT = 1 / 15
 
@@ -62,23 +71,11 @@ def setNonElevation(percentage, previous_level=0):
     sleep_duration = abs(percentage_delta) * TICKS_PER_SECOND_CONSTANT
 
     if percentage_delta < 0:
-        pi.write(GPIO_LOOKUP["down"], 1)
+        testPin("down", duration=sleep_duration, interactive=False)
     else:
-        pi.write(GPIO_LOOKUP["up"], 1)
+        testPin("up", duration=sleep_duration, interactive=False)
 
-    sleep(sleep_duration)
-
-    if percentage_delta < 0:
-        pi.write(GPIO_LOOKUP["down"], 0)
-    else:
-        pi.write(GPIO_LOOKUP["up"], 0)
-
-    
-
-
-
-
-
+        
     return percentage
 
         
