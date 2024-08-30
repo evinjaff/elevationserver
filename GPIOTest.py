@@ -20,5 +20,8 @@ for i in Config.GPIO_LOOKUP:
     GPIO.output( Config.GPIO_LOOKUP[i],False)
     time.sleep(3)
 
+    time.sleep(15)
+    print("wating...")
+
 
 GPIO.cleanup()
