@@ -23,6 +23,7 @@ for i in Config.GPIO_LOOKUP:
 
     for i in range(1, TEST_INTERVAL_PAUSE):
         print(f"{i}/{TEST_INTERVAL_PAUSE} seconds")
+        time.sleep(i)
 
     input(f"Did {i} work? (y/n): ")
 
