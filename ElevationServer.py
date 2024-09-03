@@ -21,7 +21,7 @@ TICKS_PER_SECOND_CONSTANT = 1 / 7
 def hello_world():
     return "Elevation Server is running!"
 
-@app.route("/setElevation", methos=["GET"])
+@app.route("/setElevation", methods=["GET"])
 def setElevation():
     percentage = request.args.get('value', type=int)
     
