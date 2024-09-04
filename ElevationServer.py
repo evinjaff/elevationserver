@@ -52,7 +52,7 @@ def elevationPreset(mode, previous_level=0):
     '''
 
     if mode < 1 or mode > 4:
-        return "Invalid mode. Must be between 1 and 4."
+        raise ValueError(f"Invalid mode {mode}. Must be between 1 and 4.")
     
     # Fire the optocoupler
 
@@ -83,6 +83,7 @@ def setNonElevation(percentage, previous_level=0):
     # Define the preset values
     # Find the closest preset value
     closest_preset = min(presets, key=lambda x: abs(x - percentage))
+    closest_preset = (closest_preset // 33) + 1
 
     print(f"Setting preset to {closest_preset}")
     elevationPreset(closest_preset)
