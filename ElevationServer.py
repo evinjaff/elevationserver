@@ -23,6 +23,7 @@ def hello_world():
 
 @app.route("/setElevation", methods=["GET"])
 def setElevation():
+    global current_level
     percentage = request.args.get('percentage', type=int)
     
     if percentage is None:
@@ -33,6 +34,7 @@ def setElevation():
     else:
         return jsonify({"error": "Invalid percentage value"}), 400
 
+    current_level = percentage
     return jsonify({}), 200
 
 
@@ -75,6 +77,7 @@ def setNonElevation(percentage, previous_level=0):
     Returns:
     The elevation level set
     '''
+    global current_level
     presets = [0, 33, 66, 100]
 
     if percentage in presets:
@@ -83,10 +86,16 @@ def setNonElevation(percentage, previous_level=0):
     # Define the preset values
     # Find the closest preset value
     closest_preset = min(presets, key=lambda x: abs(x - percentage))
+    difference_from_previous = abs(current_level - closest_preset)
+    # convert to mode index
     closest_preset = (closest_preset // 33) + 1
 
     print(f"Setting preset to {closest_preset}")
     elevationPreset(closest_preset)
+
+    
+    # add sleep time to elevation Preset
+    time.sleep(difference_from_previous * TICKS_PER_SECOND_CONSTANT)
     
     # Calculate the difference between the target and the closest preset
     difference = percentage - closest_preset
@@ -108,6 +117,5 @@ def setNonElevation(percentage, previous_level=0):
 if __name__ == '__main__':
 
     initializeGPIO()
-
     app.run(debug=True, port=8080, host='0.0.0.0')
 
