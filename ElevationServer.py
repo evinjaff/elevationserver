@@ -9,11 +9,13 @@ app = Flask(__name__)
 current_level = 0
 
 # Constants
-
 # How long to fire the optocouplers to press a preset
 MEMORY_BUTTON_PRESS_DURATION = 0.125
 # The ratio of seconds / number of ticks moved
 TICKS_PER_SECOND_CONSTANT = 1 / 7
+# factor of how much to fudge timing to prevent input while a preset is moving
+FUDGE_FACTOR = 1.5
+
 
 # HTTP Code
 # Quick Wakeup test to make sure the server is running
@@ -95,7 +97,7 @@ def setNonElevation(percentage, previous_level=0):
 
     
     # add sleep time to elevation Preset
-    time.sleep(difference_from_previous * TICKS_PER_SECOND_CONSTANT)
+    time.sleep(difference_from_previous * TICKS_PER_SECOND_CONSTANT * FUDGE_FACTOR)
     
     # Calculate the difference between the target and the closest preset
     difference = percentage - closest_preset
