@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from Config import GPIO_LOOKUP
-from GPIOTest import testPin
+from GPIOTest import testPin, initializeGPIO
 import time
 
 app = Flask(__name__)
@@ -23,14 +23,17 @@ def hello_world():
 
 @app.route("/setElevation", methods=["GET"])
 def setElevation():
-    percentage = request.args.get('value', type=int)
+    percentage = request.args.get('percentage', type=int)
     
     if percentage is None:
         return jsonify({"error": "No percentage value provided"}), 400
     
-    setNonElevation(percentage=percentage, previous_level=0)
+    if percentage >= 0 and percentage <= 100:
+        setNonElevation(percentage=percentage, previous_level=0)
+    else:
+        return jsonify({"error": "Invalid percentage value"}), 400
 
-    return "Success"
+    return jsonify({}), 200
 
 
 
@@ -98,5 +101,8 @@ def setNonElevation(percentage, previous_level=0):
 
 # startup the server
 if __name__ == '__main__':
+
+    initializeGPIO()
+
     app.run(debug=True, port=8080, host='0.0.0.0')
 

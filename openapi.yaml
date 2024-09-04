@@ -1,0 +1,46 @@
+openapi: 3.0.3
+info:
+  title: Elevation Server
+  description: |-
+    This is a server to remotely manipulate the position of a standing desk
+  contact:
+    email: evin@wustl.edu
+  license:
+    name: MIT License
+    url: https://opensource.org/license/mit
+  version: 1.0.0
+servers:
+  - url: http://elevationserver.local
+paths:
+  /setElevation:
+    get:
+      summary: Sets the elevation of the table
+      description: Sets the value based on a percentage of it's maximum height from 0-100
+      parameters:
+        - name: percentage
+          in: query
+          description: Percentage to set the table's elevation to (range 0-100)
+          required: true
+          schema:
+            type: integer
+            maximum: 100
+            minimum: 0
+            
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid percentage or non-integer value provided
+          
+  /:
+    get: 
+      summary: Check if server is running
+      description: Returns "Elevation Server is running!" in plaintext to check if server is alive
+      responses:
+        '200':
+          description: Text
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "Elevation Server is running!"
