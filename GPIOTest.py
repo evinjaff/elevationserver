@@ -19,7 +19,7 @@ def testPin(GPIO_ID , duration=3, interactive=False):
     print(f"Setting pin {Config.GPIO_LOOKUP[GPIO_ID]} (purpose: {GPIO_ID}) as OUT")
     GPIO.setup(Config.GPIO_LOOKUP[GPIO_ID], GPIO.OUT)
 
-    print(f"Testing Function of {GPIO_ID}")
+    print(f"Poking {GPIO_ID} on pin {Config.GPIO_LOOKUP[GPIO_ID]}")
     GPIO.output( Config.GPIO_LOOKUP[GPIO_ID] ,True)
     time.sleep(duration)
     GPIO.output( Config.GPIO_LOOKUP[GPIO_ID],False)

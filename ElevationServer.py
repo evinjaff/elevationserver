@@ -83,12 +83,16 @@ def setNonElevation(percentage, previous_level=0):
     # Define the preset values
     # Find the closest preset value
     closest_preset = min(presets, key=lambda x: abs(x - percentage))
+
+    print(f"Setting preset to {closest_preset}")
     elevationPreset(closest_preset)
     
     # Calculate the difference between the target and the closest preset
     difference = percentage - closest_preset
     # Use goUp or goDown to reach the target value
     duration = abs(difference) * TICKS_PER_SECOND_CONSTANT
+
+    print(f"{difference} runs for {duration} seconds")
 
     if difference > 0:
         testPin("up", duration=duration, interactive=False)
