@@ -6,6 +6,13 @@ import Config
 
 TEST_INTERVAL_PAUSE = 10
 
+def initializeGPIO():
+    GPIO.setmode(GPIO.BCM)
+
+    for i in Config.GPIO_LOOKUP:
+        print(f"Setting pin {Config.GPIO_LOOKUP[i]} (purpose: {i}) as OUT")
+        GPIO.setup(Config.GPIO_LOOKUP[i], GPIO.OUT)
+        print(i)
 
 def testPin(GPIO_ID , duration=3, interactive=False):
 
@@ -25,16 +32,10 @@ def testPin(GPIO_ID , duration=3, interactive=False):
 
 def testSuite(duration=3):
 
-    GPIO.setmode(GPIO.BCM)
-
-    for i in Config.GPIO_LOOKUP:
-        print(f"Setting pin {Config.GPIO_LOOKUP[i]} (purpose: {i}) as OUT")
-        GPIO.setup(Config.GPIO_LOOKUP[i], GPIO.OUT)
-        print(i)
+    initializeGPIO()
     
     for i in Config.GPIO_LOOKUP:
         testPin(i, duration=duration, interactive=True)
-
     GPIO.cleanup()
 
 
