@@ -12,7 +12,7 @@ current_level = 0
 # How long to fire the optocouplers to press a preset
 MEMORY_BUTTON_PRESS_DURATION = 0.125
 # The ratio of seconds / number of ticks moved
-TICKS_PER_SECOND_CONSTANT = 1 / 7
+TICKS_PER_SECOND_CONSTANT = 1 / 4
 # factor of how much to fudge timing to prevent input while a preset is moving
 FUDGE_FACTOR = 1.5
 
